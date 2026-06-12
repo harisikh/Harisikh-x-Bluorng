@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Harisikh × Bluorng</title>
+<meta name="description" content="An interactive note from Harisikh Jalan. Not a CV. Not a portfolio. A few things he noticed about Bluorng." />
+<meta name="theme-color" content="#F8F5F0" />
+<meta property="og:title" content="Harisikh × Bluorng" />
+<meta property="og:description" content="Not a CV. Not a portfolio. A few things I noticed about Bluorng." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Harisikh × Bluorng" />
+<meta name="twitter:description" content="Not a CV. Not a portfolio. A few things I noticed about Bluorng." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23D97706'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Mr+Dafoe&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F8F5F0;
+    --ink:#111111;
+    --ink-soft:#3a3733;
+    --ink-faint:#8c877e;
+    --accent:#D97706;     /* orange */
+    --blue:#1F3A5F;       /* the "blue" in blue-orange, used only as a wink */
+    --line:#e4ded3;
+    --serif:'Playfair Display', Georgia, serif;
+    --sans:'Inter', system-ui, sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --pad-x:clamp(1.5rem, 6vw, 7rem);
+    --pad-y:clamp(5rem, 14vh, 11rem);
+    --maxw:1080px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:clamp(1rem,0.95rem + 0.3vw,1.15rem);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:#fff;}
+
+  a{color:inherit;}
+
+  /* ---------- chrome ---------- */
+  .progress{
+    position:fixed;top:0;left:0;height:2px;width:0%;
+    background:var(--accent);z-index:120;transition:width .1s linear;
+  }
+  .brandmark{
+    position:fixed;top:clamp(1rem,2.4vh,1.8rem);left:var(--pad-x);z-index:110;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-faint);mix-blend-mode:multiply;
+  }
+  .brandmark b{color:var(--ink);font-weight:500;}
+
+  /* ---------- layout ---------- */
+  section{
+    position:relative;
+    padding:var(--pad-y) var(--pad-x);
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 clamp(1.4rem,4vh,2.6rem);display:inline-flex;align-items:center;gap:.7em;
+  }
+  .eyebrow::before{content:"";width:1.8em;height:1px;background:var(--accent);display:inline-block;}
+
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.02;letter-spacing:-.015em;margin:0;}
+  .display{
+    font-size:clamp(2.9rem,7vw + 0.5rem,7.5rem);font-weight:700;line-height:.96;letter-spacing:-.03em;
+  }
+  .h-lead{font-size:clamp(2rem,4.4vw + 0.4rem,4.1rem);font-weight:600;line-height:1.05;letter-spacing:-.02em;}
+  .lede{font-size:clamp(1.15rem,1rem + 0.6vw,1.5rem);line-height:1.55;color:var(--ink-soft);max-width:46ch;}
+  .it{font-style:italic;}
+  .amber{color:var(--accent);}
+  .blue{color:var(--blue);}
+
+  p{margin:0 0 1.1em;}
+  p.note{color:var(--ink-soft);max-width:54ch;}
+
+  /* ---------- reveal motion ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+  .d1{transition-delay:.08s;} .d2{transition-delay:.18s;} .d3{transition-delay:.30s;}
+  .d4{transition-delay:.42s;} .d5{transition-delay:.54s;} .d6{transition-delay:.66s;}
+
+  /* ---------- annotation: amber underline drawn by the text itself ---------- */
+  .mark{
+    position:relative;display:inline-block;white-space:nowrap;line-height:1.15;
+    background-image:linear-gradient(var(--accent),var(--accent));
+    background-repeat:no-repeat;background-position:0 100%;
+    background-size:0% 0.09em;padding-bottom:0.08em;
+    transition:background-size .8s cubic-bezier(.2,.7,.2,1) .3s;
+  }
+  .reveal.in .mark{background-size:100% 0.09em;}
+
+  /* ---------- hero ---------- */
+  .hero{min-height:100vh;}
+  .hero .display{margin-bottom:clamp(2rem,5vh,3rem);}
+  .hero-tiny{font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:clamp(2.5rem,7vh,4.5rem);}
+  .hero-list{list-style:none;margin:0;padding:0;display:grid;gap:.55rem;max-width:30ch;}
+  .hero-list li{font-size:clamp(1.05rem,1rem + 0.4vw,1.35rem);color:var(--ink-soft);display:flex;gap:.8em;align-items:baseline;}
+  .hero-list .n{font-family:var(--mono);font-size:.8em;color:var(--accent);}
+  .scrollcue{position:absolute;bottom:clamp(1.6rem,4vh,2.6rem);left:var(--pad-x);font-family:var(--mono);font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);display:flex;align-items:center;gap:.7em;}
+  .scrollcue .arrow{display:inline-block;animation:bob 1.8s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+  .ghost{
+    position:absolute;right:max(2vw,1rem);top:50%;transform:translateY(-50%);
+    font-family:var(--serif);font-weight:800;font-size:min(34vw,40rem);line-height:.8;
+    color:var(--ink);opacity:.035;letter-spacing:-.05em;pointer-events:none;user-select:none;z-index:0;
+  }
+  .hero .wrap{position:relative;z-index:1;}
+
+  /* ---------- confession ---------- */
+  .letter{max-width:34rem;font-size:clamp(1.15rem,1rem + 0.6vw,1.5rem);line-height:1.6;}
+  .letter p{color:var(--ink-soft);}
+  .letter .strong{color:var(--ink);}
+  .sigwrap{margin-top:2.4rem;}
+  .sig .signature{font-family:'Mr Dafoe', cursive;font-weight:400;font-size:clamp(3.4rem,9vw,5.8rem);line-height:1.05;color:var(--ink);display:inline-block;padding:.04em .12em .18em;clip-path:inset(0 100% 0 0);}
+  .sig.draw .signature{clip-path:inset(0 0 0 0);transition:clip-path 1.9s cubic-bezier(.62,.05,.2,1);}
+  .sig-name{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin-top:.2rem;}
+
+  .conf-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(2rem,6vw,5rem);align-items:center;}
+  .conf-main .letter{max-width:36rem;}
+  .conf-aside{font-family:var(--mono);}
+  .log-label{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 1.3rem;}
+  .log{list-style:none;margin:0;padding:0 0 0 1.3rem;display:grid;gap:.8rem;border-left:1px solid var(--line);}
+  .log li{display:flex;gap:1rem;font-size:.82rem;line-height:1.4;color:var(--ink-soft);align-items:baseline;}
+  .log li .t{color:var(--ink-faint);min-width:2.8em;flex:0 0 auto;}
+  .log li.hit{color:var(--ink);}
+  .log li.hit .t{color:var(--accent);}
+  @media(max-width:860px){
+    .conf-grid{grid-template-columns:1fr;gap:clamp(2.4rem,8vh,3.5rem);}
+    .conf-aside{order:3;}
+  }
+
+  /* ---------- thing 1 / swap ---------- */
+  .swap{font-family:var(--serif);font-weight:700;letter-spacing:-.025em;line-height:1;font-size:clamp(2.6rem,6.5vw,6rem);}
+  .swap .line2{display:block;margin-top:.2em;opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s ease;}
+  .swap.go .line2{opacity:1;transform:none;}
+  .swap .struck{position:relative;display:inline-block;}
+  .swap .struck::after{content:"";position:absolute;left:0;right:0;top:54%;height:3px;background:var(--accent);border-radius:2px;transform:scaleX(0);transform-origin:left center;transition:transform .7s ease .1s;}
+  .swap.go .struck::after{transform:scaleX(1);}
+
+  .decode{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4em 1.2em;margin-top:clamp(2.4rem,6vh,4rem);font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.6rem);font-weight:600;}
+  .decode .chip{font-style:italic;}
+  .decode small{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;margin-top:.4em;}
+
+  /* ---------- thing 2 / sequence ---------- */
+  .seq{display:flex;flex-wrap:wrap;align-items:stretch;gap:clamp(.6rem,2vw,1.4rem);margin-top:clamp(2.5rem,6vh,4rem);}
+  .step{flex:1 1 130px;min-width:120px;background:#fffdf9;border:1px solid var(--line);border-radius:14px;padding:1.3rem 1rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.8rem;}
+  .step svg{width:46px;height:46px;color:var(--ink);}
+  .step .lab{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
+  .step .num{font-family:var(--mono);font-size:.62rem;color:var(--accent);}
+  .seq .arrow{align-self:center;color:var(--ink-faint);font-size:1.2rem;flex:0 0 auto;}
+  @media(max-width:680px){
+    .seq{flex-direction:column;}
+    .seq .arrow{transform:rotate(90deg);}
+    .step{flex-direction:row;justify-content:flex-start;text-align:left;}
+  }
+
+  /* ---------- thing 3 / founders ---------- */
+  .pull{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(1.5rem,2.6vw,2.3rem);line-height:1.3;border-left:2px solid var(--accent);padding-left:1.4rem;margin:clamp(2rem,5vh,3rem) 0;max-width:30ch;}
+
+  /* ---------- timeline ---------- */
+  .tl{margin-top:clamp(2.4rem,6vh,3.5rem);position:relative;padding-left:1.6rem;}
+  .tl::before{content:"";position:absolute;left:5px;top:.6rem;bottom:1.2rem;width:1px;background:var(--line);}
+  .tl-row{position:relative;padding:0 0 clamp(1.6rem,4vh,2.4rem);}
+  .tl-row::before{content:"";position:absolute;left:-1.6rem;top:.5rem;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);}
+  .tl-year{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;color:var(--accent);}
+  .tl-role{font-family:var(--serif);font-size:clamp(1.25rem,2vw,1.7rem);font-weight:600;margin:.15rem 0 .25rem;}
+  .tl-desc{color:var(--ink-soft);max-width:42ch;margin:0;}
+
+  /* ---------- cards ---------- */
+  .cards{display:grid;gap:clamp(1rem,2vw,1.4rem);margin-top:clamp(2.4rem,6vh,3.5rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));}
+  .card{background:#fffdf9;border:1px solid var(--line);border-radius:16px;padding:clamp(1.4rem,3vw,2rem);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease,border-color .4s ease;}
+  .card:hover{transform:translateY(-5px);box-shadow:0 18px 40px -22px rgba(40,30,10,.35);border-color:#d8cdb8;}
+  .card .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:var(--accent);}
+  .card h3{font-size:clamp(1.3rem,2vw,1.7rem);margin:.5rem 0 .7rem;}
+  .card p{color:var(--ink-soft);margin:0;font-size:.98rem;}
+  .closer{font-family:var(--serif);font-style:italic;font-size:clamp(1.3rem,2.4vw,2rem);margin-top:clamp(1.8rem,4vh,2.6rem);}
+
+  /* opportunity cards, numbered, denser */
+  .ops{display:grid;gap:clamp(1rem,2vw,1.4rem);margin-top:clamp(2.4rem,6vh,3.5rem);grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));}
+  .op{background:#fffdf9;border:1px solid var(--line);border-radius:16px;padding:clamp(1.4rem,3vw,1.9rem);position:relative;overflow:hidden;transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease;}
+  .op:hover{transform:translateY(-5px);box-shadow:0 18px 40px -22px rgba(40,30,10,.35);}
+  .op .idx{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.1em;}
+  .op h3{font-size:clamp(1.2rem,1.8vw,1.5rem);margin:.45rem 0 .55rem;}
+  .op .what{color:var(--ink-soft);font-size:.95rem;margin:0 0 .9rem;}
+  .op .why{font-size:.82rem;color:var(--ink-faint);border-top:1px solid var(--line);padding-top:.7rem;margin:0;}
+  .op .why b{color:var(--ink-soft);font-weight:500;}
+
+  /* ---------- unfair advantage ---------- */
+  .versus{display:grid;gap:1.4rem;margin-top:clamp(2.2rem,5vh,3rem);max-width:40rem;}
+  .versus div{display:flex;gap:1rem;align-items:baseline;}
+  .versus .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);min-width:6.5em;}
+  .versus p{margin:0;color:var(--ink-soft);}
+
+  /* ---------- secret ---------- */
+  .secret-dot{
+    position:fixed;right:clamp(1.2rem,3vw,2.2rem);bottom:clamp(1.2rem,3vw,2.2rem);z-index:115;
+    width:13px;height:13px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;
+    box-shadow:0 0 0 0 rgba(217,119,6,.5);animation:pulse 2.6s ease-in-out infinite;
+  }
+  .secret-dot::after{content:"there's something I didn't put on a page";position:absolute;right:24px;top:50%;transform:translateY(-50%);
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;color:var(--ink-faint);white-space:nowrap;opacity:0;transition:opacity .3s;pointer-events:none;}
+  .secret-dot:hover::after,.secret-dot:focus-visible::after{opacity:1;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(217,119,6,.45);}70%{box-shadow:0 0 0 12px rgba(217,119,6,0);}100%{box-shadow:0 0 0 0 rgba(217,119,6,0);}}
+
+  .overlay{position:fixed;inset:0;z-index:200;background:rgba(17,17,17,.55);backdrop-filter:blur(6px);
+    display:flex;align-items:flex-start;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s ease;overflow-y:auto;padding:clamp(1.5rem,6vh,5rem) 1.2rem;}
+  .overlay.open{opacity:1;pointer-events:auto;}
+  .sheet{background:#16140f;color:#e9e3d8;max-width:640px;width:100%;border-radius:20px;padding:clamp(1.8rem,5vw,3.2rem);box-shadow:0 40px 80px -24px rgba(0,0,0,.7);border:1px solid rgba(217,119,6,.18);transform:translateY(20px) scale(.98);transition:transform .5s cubic-bezier(.2,.7,.2,1);}
+  .overlay.open .sheet{transform:none;}
+  .sheet h2{font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:.3rem;color:#fff;}
+  .sheet .sub{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem;display:flex;align-items:center;gap:.5em;}
+  .sheet .sub::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);}
+  .secret-intro{color:#a8a096;font-size:.95rem;line-height:1.5;margin:.6rem 0 1.7rem;max-width:42ch;}
+  .ol{list-style:none;counter-reset:o;margin:0;padding:0;display:grid;gap:.85rem;}
+  .ol li{counter-increment:o;display:flex;gap:.9rem;align-items:baseline;color:#cfc8bd;font-size:1.02rem;line-height:1.45;}
+  .ol li::before{content:counter(o,decimal-leading-zero);font-family:var(--mono);font-size:.78rem;color:var(--accent);min-width:1.8em;}
+  .ol li b{color:#fff;font-weight:600;}
+  .close-x{margin-top:1.8rem;background:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:.6rem 1.3rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#cfc8bd;cursor:pointer;transition:border-color .3s,color .3s;}
+  .close-x:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- final ---------- */
+  .final{background:var(--ink);color:#fff;}
+  .final .eyebrow{color:var(--accent);}
+  .final .big{font-family:var(--serif);font-weight:700;font-size:clamp(2.4rem,6.5vw,6rem);line-height:.98;letter-spacing:-.03em;}
+  .final .big .lo{display:block;color:var(--accent);}
+  .final .sub{color:#cfc8bd;max-width:34ch;font-size:clamp(1.1rem,1rem + 0.5vw,1.4rem);margin-top:1.6rem;}
+  .cta{display:inline-flex;align-items:center;gap:.7em;margin-top:clamp(2.4rem,5vh,3.4rem);background:var(--accent);color:#111;text-decoration:none;
+    font-family:var(--mono);font-weight:500;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;padding:1rem 1.8rem;border-radius:999px;
+    transition:transform .3s ease,box-shadow .3s ease;box-shadow:0 0 0 0 rgba(217,119,6,0);}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 40px -10px rgba(217,119,6,.7);}
+  .contact{margin-top:clamp(2.2rem,5vh,3rem);display:flex;flex-wrap:wrap;gap:1.4rem 2.4rem;font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;}
+  .contact a{color:#cfc8bd;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:color .3s,border-color .3s;}
+  .contact a:hover{color:#fff;border-color:var(--accent);}
+  .contact .lbl{display:block;color:var(--ink-faint);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;}
+  .final-mark{margin-top:clamp(3rem,7vh,5rem);font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#6b655c;}
+.cv-link{
+  margin-top:2rem;
+  color:#8c877e;
+  font-size:0.9rem;
+  font-style:italic;
+}
+
+.cv-link a{
+  color:inherit;
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:all .3s ease;
+}
+
+.cv-link a:hover{
+  color:var(--accent);
+  border-bottom:1px solid var(--accent);
+}
+
+.cv-note{
+  margin-top:.4rem;
+  color:#6b655c;
+  font-size:.82rem;
+  font-style:italic;
+  opacity:.85;
+}
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;}
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .mark{background-size:100% 0.09em !important;transition:none;}
+    .swap .struck::after{transform:scaleX(1) !important;transition:none;}
+    .sig .signature{clip-path:none !important;transition:none;}
+    .swap .line2{opacity:1;transform:none;}
+    .scrollcue .arrow{animation:none;}
+    .secret-dot{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="brandmark">Harisikh&nbsp;Jalan&nbsp;&nbsp;·&nbsp;&nbsp;<b>Bluorng</b></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="ghost" aria-hidden="true">TIN</div>
+  <div class="wrap">
+    <p class="hero-tiny reveal in">Bluorng · Application, Marketing Head &amp; Partnership Lead</p>
+    <h1 class="display reveal in d1">THINGS<br>I&nbsp;NOTICED.</h1>
+    <ul class="hero-list reveal in d2">
+      <li><span class="n">01</span> The clothes are premium.</li>
+      <li><span class="n">02</span> The experience is intentional.</li>
+      <li><span class="n">03</span> The brand is bigger than both.</li>
+    </ul>
+  </div>
+  <div class="scrollcue reveal in d3"><span>Scroll</span><span class="arrow">↓</span></div>
+</section>
+
+<!-- ============ CONFESSION ============ -->
+<section id="confession">
+  <div class="wrap conf-grid">
+    <div class="conf-main">
+      <p class="eyebrow reveal">Before we begin</p>
+      <h2 class="h-lead reveal d1">A confession.</h2>
+      <div class="letter reveal d2" style="margin-top:clamp(1.6rem,4vh,2.4rem);">
+        <p>Hi Siddhant &amp; Mokam,</p>
+        <p>You asked applicants to tell you <span class="strong">why</span>. So I started writing a cover letter.</p>
+        <p>Then I opened your website. Then your Instagram. Then both your LinkedIns. Somewhere around the part where I was studying your <span class="strong">packaging</span>, I realised a PDF wasn't going to do this justice.</p>
+        <p>You said you're hiring for a role you've never hired for before. So it felt only fair that the application shouldn't look like one either.</p>
+        <p class="strong">So I built this instead.</p>
+      </div>
+      <div class="sigwrap reveal d3">
+        <div class="sig" id="sig">
+          <span class="signature">Harisikh</span>
+          <div class="sig-name">Harisikh Jalan</div>
+        </div>
+      </div>
+    </div>
+    <aside class="conf-aside reveal d3">
+      <p class="log-label">The evening in question</p>
+      <ul class="log">
+        <li class="hit"><span class="t">6:25</span><span>saw the story of the job opportunity</span></li>
+        <li><span class="t">7:02</span><span>opened bluorng.com</span></li>
+        <li><span class="t">7:21</span><span>read 'our story' twice</span></li>
+        <li><span class="t">7:40</span><span>lost an hour on Instagram</span></li>
+        <li><span class="t">8:43</span><span>found both of you on LinkedIn</span></li>
+        <li><span class="t">9:13</span><span>googled "why the pillow packaging"</span></li>
+        <li class="hit"><span class="t">10:02</span><span>closed the cover letter</span></li>
+        <li class="hit"><span class="t">10:59</span><span>opened a code editor</span></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ THING 1 ============ -->
+<section id="thing1">
+  <div class="wrap">
+    <p class="eyebrow reveal">Observation 01</p>
+    <div class="swap reveal d1" id="swap1">
+      <span>You don't sell <span class="struck">streetwear</span>.</span>
+      <span class="line2">You sell <span class="amber it">expression.</span></span>
+    </div>
+    <div class="reveal d3" style="margin-top:clamp(2rem,5vh,3rem);max-width:48ch;">
+      <p class="note">Most brands talk about products. You talk about identity, about people who'd rather be specific than safe. Your own story says the designs come from <span class="mark">life itself</span>, nature, emotion, the things people actually feel. That's not a product line. That's a point of view.</p>
+    </div>
+    <div class="decode reveal d4">
+      <span class="chip blue">Blue<small>calm · considered</small></span>
+      <span style="color:var(--ink-faint);">+</span>
+      <span class="chip amber">Orange<small>loud · alive</small></span>
+      <span style="color:var(--ink-faint);">=</span>
+      <span class="chip">Bluorng<small>two things that shouldn't go together, made to</small></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THING 2 ============ -->
+<section id="thing2">
+  <div class="wrap">
+    <p class="eyebrow reveal">Observation 02</p>
+    <h2 class="h-lead reveal d1">You are obsessed with <span class="mark">details</span>.</h2>
+    <div class="reveal d2" style="margin-top:clamp(1.6rem,4vh,2.4rem);max-width:50ch;">
+      <p class="note">You ordered a cap. It didn't arrive in a box. It arrived inside a <span class="strong" style="color:var(--ink);">pillow</span>, an inflated cushion of air, with the cap resting in the middle like it mattered.</p>
+      <p class="note">The packaging wasn't protection. It was <span class="amber">theatre</span>. That's when it became clear that <span class="strong" style="color:var(--ink);">Bluorng</span> isn't just obsessed with what arrives. It's also obsessed with how it arrives.
+    </div>
+
+    <div class="seq reveal d3" aria-label="From package to brand love">
+      <div class="step">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="14" width="36" height="20" rx="10"/><rect x="17" y="20" width="14" height="8" rx="2" stroke="#D97706"/></svg>
+        <span class="num">01</span><span class="lab">Pillow package</span>
+      </div>
+      <span class="arrow">→</span>
+      <div class="step">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 30c0-8 6-14 14-14s14 6 14 14"/><path d="M6 30h36"/><path d="M24 16v-3"/></svg>
+        <span class="num">02</span><span class="lab">The cap</span>
+      </div>
+      <span class="arrow">→</span>
+      <div class="step">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="18" r="7"/><path d="M11 38c1-7 6-11 13-11s12 4 13 11"/></svg>
+        <span class="num">03</span><span class="lab">Customer</span>
+      </div>
+      <span class="arrow">→</span>
+      <div class="step">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="8" width="24" height="32" rx="4"/><circle cx="24" cy="33" r="2" fill="#D97706" stroke="#D97706"/><path d="M19 14h10"/></svg>
+        <span class="num">04</span><span class="lab">Social post</span>
+      </div>
+      <span class="arrow">→</span>
+      <div class="step">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#D97706" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 36s-12-7.5-12-16a7 7 0 0 1 12-4 7 7 0 0 1 12 4c0 8.5-12 16-12 16z"/></svg>
+        <span class="num">05</span><span class="lab">Brand love</span>
+      </div>
+    </div>
+    <p class="note reveal d4" style="margin-top:clamp(1.6rem,4vh,2.4rem);">A box ships a product. A pillow ships a <span class="amber">story</span>, and a story is the only thing a customer actually posts.</p>
+  </div>
+</section>
+
+<!-- ============ THING 3 ============ -->
+<section id="thing3">
+  <div class="wrap">
+    <p class="eyebrow reveal">Observation 03</p>
+    <h2 class="h-lead reveal d1">The founders are still in the room.</h2>
+    <div class="reveal d2" style="margin-top:clamp(1.6rem,4vh,2.4rem);max-width:50ch;">
+      <p class="note">You met at design school. You built Bluorng in 2020. Five years and a GQ India <span class="strong" style="color:var(--ink);">"Streetwear Label of the Year"</span> later, the brand still sounds like the two of you, the taste, the detail, the standard, in every drop and every store.</p>
+    </div>
+    <blockquote class="pull reveal d3">Your job post says it out loud: marketing has always run through the founders.</blockquote>
+    <div class="reveal d4" style="max-width:50ch;">
+      <p class="note">Most brands read that as a gap. I read it as the proof. It means the brand has a voice worth protecting, and you're not looking for a marketer. You're looking for a <span class="amber">third person</span> who can walk into a room and still sound like Bluorng.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHO AM I ============ -->
+<section id="who">
+  <div class="wrap">
+    <p class="eyebrow reveal">The person noticing</p>
+    <h2 class="h-lead reveal d1">Five years spent learning how people actually decide.</h2>
+    <div class="tl">
+      <div class="tl-row reveal d1"><div class="tl-year">2021 · Kantar</div><div class="tl-role">Associate Research Executive</div><p class="tl-desc">Learned how people actually think, not how they say they do.</p></div>
+      <div class="tl-row reveal d2"><div class="tl-year">2022</div><div class="tl-role">Associate Research Manager</div><p class="tl-desc">Learned how markets move, and how to find the pattern under the noise.</p></div>
+      <div class="tl-row reveal d3"><div class="tl-year">2023</div><div class="tl-role">Research Manager</div><p class="tl-desc">Learned how businesses decide, and what makes a recommendation land.</p></div>
+      <div class="tl-row reveal d4"><div class="tl-year">2024</div><div class="tl-role">Senior Research Manager</div><p class="tl-desc">Learned how trust compounds: with clients, teams and stakeholders.</p></div>
+      <div class="tl-row reveal d5"><div class="tl-year">2025</div><div class="tl-role">Account Manager</div><p class="tl-desc">Learned how relationships are built, and, harder, how they're held.</p></div>
+      <div class="tl-row reveal d6"><div class="tl-year amber">2026</div><div class="tl-role amber">Still fascinated by people.</div><p class="tl-desc">Now I'd like to build something <em>for</em> them.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY I'D FIT ============ -->
+<section id="fit">
+  <div class="wrap">
+    <p class="eyebrow reveal">The overlap</p>
+    <h2 class="h-lead reveal d1">Why I think I'd fit here.</h2>
+    <div class="cards">
+      <div class="card reveal d1"><div class="k">// 01</div><h3>I study behaviour.</h3><p>Years of figuring out why people buy, why they stay loyal, and why they quietly leave. That's the same instinct that reads a partnership before it's a deal.</p></div>
+      <div class="card reveal d2"><div class="k">// 02</div><h3>I build relationships.</h3><p>Trust isn't a soft skill. It's infrastructure. I've spent five years being the person clients and global teams actually wanted in the room.</p></div>
+      <div class="card reveal d3"><div class="k">// 03</div><h3>I spot opportunities.</h3><p>Patterns become opportunities the moment someone notices them. Noticing, across a thousand data points or one inbox of collab requests, is the job I've already been doing.</p></div>
+    </div>
+    <p class="closer reveal d4">Different title. <span class="amber">Same muscles.</span></p>
+  </div>
+</section>
+
+<!-- ============ OPPORTUNITIES ============ -->
+<section id="ops">
+  <div class="wrap">
+    <p class="eyebrow reveal">If I started tomorrow</p>
+    <h2 class="h-lead reveal d1">Five things I'd want to build.</h2>
+    <p class="note reveal d2" style="margin-top:1rem;">Not because you asked, because I couldn't help thinking about them.</p>
+    <div class="ops">
+      <div class="op reveal d1"><div class="idx">Opportunity 01</div><h3>Bluorng Passport</h3><p class="what">A stamp for every walk-in store, Delhi, Mumbai, Ahmedabad, Hyderabad, Gurugram. Collect them, unlock drops.</p><p class="why"><b>Why:</b> turns five locations into one community, and a purchase into a collectible.</p></div>
+      <div class="op reveal d2"><div class="idx">Opportunity 02</div><h3>The Expression Project</h3><p class="what">Customers submit the story behind a piece. The best ones become the next drop.</p><p class="why"><b>Why:</b> if you sell expression, let the expression come from them.</p></div>
+      <div class="op reveal d3"><div class="idx">Opportunity 03</div><h3>Bluorng After Hours</h3><p class="what">Invite-only monthly nights. Creators, customers and founders in one room.</p><p class="why"><b>Why:</b> culture over commerce, the part that doesn't fit in a feed.</p></div>
+      <div class="op reveal d4"><div class="idx">Opportunity 04</div><h3>City Capsules</h3><p class="what">Limited pieces designed for a single city's identity, sold only there.</p><p class="why"><b>Why:</b> you already have the stores. This gives each one a soul.</p></div>
+      <div class="op reveal d5"><div class="idx">Opportunity 05</div><h3>The Packaging Project</h3><p class="what">Collaborate with industrial designers on packaging people keep.</p><p class="why"><b>Why:</b> the pillow proved it. Make the unboxing collectible too.</p></div>
+    </div>
+    <p class="closer reveal d6">I'd rather show value than claim it.</p>
+  </div>
+</section>
+
+<!-- ============ CV DOESN'T SHOW ============ -->
+<section id="offresume">
+  <div class="wrap">
+    <p class="eyebrow reveal">Off the résumé</p>
+    <h2 class="h-lead reveal d1">What my CV doesn't show.</h2>
+    <div class="reveal d2" style="margin-top:clamp(1.6rem,4vh,2.4rem);max-width:48ch;">
+      <p class="note">My CV shows five promotions in four years. It shows responsibilities and a Global award.</p>
+      <p class="note">What it can't show is <span class="mark amber">curiosity</span>, or why I spent an evening reverse-engineering a streetwear brand's packaging strategy when I could have attached a PDF and gone to bed.</p>
+      <p class="note">That part doesn't fit on a page. So I made it the whole page.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UNFAIR ADVANTAGE ============ -->
+<section id="advantage">
+  <div class="wrap">
+    <p class="eyebrow reveal">Positioning</p>
+    <h2 class="display reveal d1" style="font-size:clamp(2.4rem,5.5vw,5rem);">I don't think<br>like a marketer.<br><span class="amber it">I think like a researcher.</span></h2>
+    <div class="versus">
+      <div class="reveal d2"><span class="tag">Marketers</span><p>start with the campaign, then go looking for the people.</p></div>
+      <div class="reveal d3"><span class="tag">Researchers</span><p>start with the people, and let everything else follow.</p></div>
+    </div>
+    <p class="note reveal d4" style="margin-top:clamp(1.8rem,4vh,2.6rem);max-width:44ch;">I've spent years understanding people. The next step I want isn't a louder campaign. It's helping build something they'll actually care about.</p>
+  </div>
+</section>
+
+<!-- ============ FINAL ============ -->
+<section class="final" id="end">
+  <div class="wrap">
+    <p class="eyebrow reveal">The end, or the start</p>
+    <h2 class="big reveal d1">YOU ASKED FOR<br>AN APPLICATION.<span class="lo it">I got interested.</span></h2>
+    <p class="sub reveal d2">And honestly, that's probably the best reason to hire me.</p>
+    <a class="cta reveal d3" href="mailto:harisikhj@gmail.com?subject=Bluorng%3A%20Marketing%20Head%20%26%20Partnership%20Lead&amp;body=Hi%20Harisikh%2C%0A%0A">Let's talk →</a>
+    <div class="contact reveal d4">
+      <div><span class="lbl">Email</span><a href="mailto:harisikhj@gmail.com">harisikhj@gmail.com</a></div>
+      <div><span class="lbl">Phone</span><a href="tel:+918135071394">+91 81350 71394</a></div>
+      <div><span class="lbl">LinkedIn</span><a href="https://www.linkedin.com/in/harisikhjalan" target="_blank" rel="noopener">/in/harisikhjalan</a></div>
+    </div>
+<p class="cv-link reveal d5">
+  For completeness,
+  <a href="Harisikh_Jalan_CV.pdf" target="_blank">
+    here's the traditional version.
+  </a>
+</p>
+
+<p class="cv-note reveal d5">
+  Fair warning: this is where the personality drops and the bullet points begin.
+</p>
+    <p class="final-mark reveal d5">Harisikh Jalan · A few things I noticed about Bluorng · 2026</p>
+  </div>
+</section>
+
+<!-- ============ SECRET ============ -->
+<button class="secret-dot" id="secretDot" aria-label="Open hidden field notes"></button>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="secretTitle">
+  <div class="sheet">
+    <p class="sub">You found the hidden page</p>
+    <h2 id="secretTitle">10 things I noticed in 2 hours.</h2>
+    <p class="secret-intro">You looked beyond the obvious.
+So here's everything I noticed before we ever had a conversation.</p>
+    <ol class="ol" style="margin-top:0;">
+      <li>You don't chase trends. You <b>interpret</b> them.</li>
+      <li>Packaging here is <b>a feeling</b>, not a formality.</li>
+      <li>Community matters more than the transaction.</li>
+      <li>The stores read like <b>experiences</b>, not shops.</li>
+      <li>The founders still feel <b>close</b> to the brand.</li>
+      <li>Product quality is treated as part of identity.</li>
+      <li>Streetwear energy, <b>luxury</b> execution.</li>
+      <li>Expression always beats conformity.</li>
+      <li>Culture comes before scale, on purpose.</li>
+      <li>That's exactly <b>why people care.</b></li>
+    </ol>
+    <button class="close-x" id="closeBtn">Close ✕</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* progress bar */
+  var bar = document.getElementById('progress');
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max>0 ? (h.scrollTop||document.body.scrollTop)/max*100 : 0) + '%';
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* reveal on scroll */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.18, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){
+    if(reduce){ el.classList.add('in'); } else { io.observe(el); }
+  });
+
+  /* signature draw */
+  var sig = document.getElementById('sig');
+  var sigIo = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ sig.classList.add('draw'); sigIo.disconnect(); }});
+  }, {threshold:0.5});
+  if(sig){ reduce ? sig.classList.add('draw') : sigIo.observe(sig); }
+
+  /* word swap on thing 1 */
+  var swap = document.getElementById('swap1');
+  if(swap){
+    var sIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          if(reduce){ swap.classList.add('go'); }
+          else { setTimeout(function(){ swap.classList.add('go'); }, 700); }
+          sIo.disconnect();
+        }
+      });
+    }, {threshold:0.55});
+    sIo.observe(swap);
+  }
+
+  /* secret overlay */
+  var dot = document.getElementById('secretDot');
+  var overlay = document.getElementById('overlay');
+  var closeBtn = document.getElementById('closeBtn');
+  var lastFocus = null;
+  function openSecret(){ lastFocus=document.activeElement; overlay.classList.add('open'); document.body.style.overflow='hidden'; closeBtn.focus(); }
+  function closeSecret(){ overlay.classList.remove('open'); document.body.style.overflow=''; if(lastFocus) lastFocus.focus(); }
+  dot.addEventListener('click', openSecret);
+  closeBtn.addEventListener('click', closeSecret);
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) closeSecret(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape' && overlay.classList.contains('open')) closeSecret();
+    if((e.key==='n'||e.key==='N') && !overlay.classList.contains('open') && !/input|textarea/i.test(document.activeElement.tagName)) openSecret();
+  });
+})();
+</script>
+</body>
+</html>
